@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>滲力品牌故事測試頁</title>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="description" content="滲得進去，才滅得掉。滲力是液劑型的白蟻餌劑，順著木紋滲進蛀道，送到白蟻取食的地方。">
+<meta property="og:title" content="滲力 SHENLI｜滲得進去，才滅得掉">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Sora:wght@500;700&display=swap">
+<style>
+/* Layout: one sticky canvas (the wood cross-section) behind scrolling chapter text.
+   Phone: board on top, text at the bottom. Desktop ≥1024: text left, board right. */
+:root{
+  color-scheme: dark;
+  --navy:#0A1A33;      /* 深海藍 品牌基底 */
+  --navy-2:#0F2547;
+  --blue:#1557D6;      /* 滲力藍 主色 */
+  --cyan:#2FC6E8;      /* 滲透青 只用於藥劑與滲透路徑 */
+  --mist:#EEF3F8;      /* 霧白 */
+  --mist-2:#A9B8CC;    /* 次要文字 */
+  --wood-red:#8E3B2A;  /* 木紋棕紅 */
+  --wood:#C98B5E;      /* 淺木 */
+  --gold:#F2B33D;      /* 勝利金 */
+  --spray:#9FB0C3;     /* 一般噴霧（對照用） */
+  --f-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-latin:"Sora","Noto Sans TC",system-ui,sans-serif;
+  --gut-l:max(20px, env(safe-area-inset-left, 0px));
+  --gut-r:max(20px, env(safe-area-inset-right, 0px));
+  --nav-h:60px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--navy);color:var(--mist);font-family:var(--f-zh);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- nav ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--navy)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:rgba(10,26,51,.92);border-bottom:1px solid rgba(238,243,248,.08)}
+.nav-in{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:16px;padding-left:var(--gut-l);padding-right:var(--gut-r);max-width:1440px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.tile{width:32px;height:32px;display:grid;place-items:center;background:var(--blue);color:var(--mist);font-weight:900;font-size:18px;border-radius:6px}
+.brand b{font-weight:900;font-size:18px;letter-spacing:.06em}
+.brand i{font-style:normal;font-family:var(--f-latin);font-weight:700;font-size:12px;letter-spacing:.22em;color:var(--mist-2);margin-left:8px}
+.links{display:none;gap:4px}
+.links a{text-decoration:none;font-size:15px;color:var(--mist-2);padding:8px 14px;border-radius:999px;transition:color .2s,background .2s}
+.links a:hover{color:var(--mist);background:rgba(238,243,248,.06)}
+.links a[aria-current="true"]{color:var(--mist);background:rgba(21,87,214,.35)}
+.menu-btn{width:44px;height:44px;display:grid;place-items:center;background:none;border:0;color:var(--mist);cursor:pointer;border-radius:8px}
+.menu-btn svg{width:24px;height:24px}
+.bar{height:2px;background:rgba(238,243,248,.06)}
+.bar span{display:block;height:100%;width:100%;background:var(--cyan);transform-origin:0 50%;transform:scaleX(0)}
+.menu{position:fixed;inset:0;z-index:29;background:var(--navy);padding:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 32px) var(--gut-r) 32px var(--gut-l);display:flex;flex-direction:column;gap:8px}
+.menu a{text-decoration:none;font-size:28px;font-weight:900;padding:12px 0;border-bottom:1px solid rgba(238,243,248,.08);display:flex;gap:16px;align-items:baseline}
+.menu a span{font-family:var(--f-latin);font-size:14px;color:var(--cyan);font-weight:700}
+@media (min-width:1024px){.links{display:flex}.menu-btn{display:none}.menu{display:none!important}}
+
+/* ---------- story ---------- */
+.story{position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;margin-bottom:-100vh;margin-bottom:-100svh;z-index:0;overflow:hidden}
+.stage canvas{display:block;width:100%;height:100%}
+.stage::after{content:"";position:absolute;inset:0 0 auto 0;height:44%;background:linear-gradient(to bottom,var(--navy) 0%,rgba(10,26,51,.92) 55%,rgba(10,26,51,0) 100%);pointer-events:none}
+.steps{position:relative;z-index:1}
+.step{min-height:100vh;min-height:100svh;display:flex;align-items:flex-start;padding-left:var(--gut-l);padding-right:var(--gut-r);padding-block:calc(var(--nav-h) + 28px) 40px}
+.tags{display:flex;flex-wrap:wrap;gap:6px 18px;margin:18px 0 0;padding:0;list-style:none;font-family:var(--f-latin);font-size:12px;letter-spacing:.14em;color:var(--mist-2)}
+.tags li b{display:block;font-family:var(--f-zh);font-size:15px;letter-spacing:.04em;color:var(--mist);font-weight:700}
+.solid{background:rgba(10,26,51,.9);border-radius:14px;padding:20px 18px;margin-inline:-18px;width:calc(100% + 36px)}
+.copy{max-width:34rem;width:100%;margin:0 auto;position:sticky;top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 28px)}
+.eyebrow{display:flex;gap:12px;align-items:baseline;font-size:14px;font-weight:700;color:var(--cyan);letter-spacing:.08em;margin:0 0 14px}
+.eyebrow b{font-family:var(--f-latin);font-size:13px;letter-spacing:.12em}
+h1,h2{margin:0;font-weight:900;text-wrap:balance;letter-spacing:.02em}
+h1{font-size:clamp(2.5rem,11.5vw,5.6rem);line-height:1.12}
+h2{font-size:clamp(1.75rem,7.2vw,3.25rem);line-height:1.25}
+.big{font-size:clamp(1.9rem,8vw,3.6rem);line-height:1.25;font-weight:900;margin:0;text-wrap:balance}
+.lede{font-size:clamp(1.05rem,4.2vw,1.3rem);color:var(--mist-2);margin:16px 0 0;max-width:30em}
+.lede strong{color:var(--mist);font-weight:700}
+.hl{color:var(--cyan)}
+.hint{display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:14px;color:var(--mist-2);text-decoration:none}
+.hint svg{width:18px;height:18px}
+.motion .hint svg{animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(5px)}}
+.spirit{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px}
+.spirit li{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;align-items:start;padding:14px 0;border-top:1px solid rgba(238,243,248,.12)}
+.spirit .ic{grid-row:span 2;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(21,87,214,.3);color:var(--cyan)}
+.spirit .ic svg{width:22px;height:22px}
+.spirit b{font-size:20px;font-weight:900}
+.spirit b small{font-size:14px;font-weight:500;color:var(--cyan);margin-left:10px}
+.spirit p{margin:0;color:var(--mist-2);font-size:15px;line-height:1.6;min-width:0}
+
+/* text reveal (only when JS runs and motion is allowed) */
+.motion .step:not(.hero) .copy{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.motion .step.in .copy{opacity:1;transform:none}
+
+@media (min-width:1024px){
+  .stage::after{inset:0 auto 0 0;width:58%;height:100%;background:linear-gradient(to right,var(--navy) 0%,var(--navy) 50%,rgba(10,26,51,0) 100%)}
+  .step{padding-block:calc(var(--nav-h) + 16vh) var(--nav-h)}
+  .copy{margin:0;max-width:min(34rem,40vw);margin-left:max(0px,calc((100vw - 1440px)/2));top:calc(var(--nav-h) + 16vh)}
+  .solid{background:none;padding:0;margin-inline:0;width:100%}
+  h1{font-size:clamp(3.6rem,5.6vw,5.6rem)}
+  h2{font-size:clamp(2.2rem,3vw,2.9rem)}
+}
+
+/* ---------- next / footer ---------- */
+.next{position:relative;z-index:2;background:var(--navy-2);padding-block:88px 96px;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.next-in{max-width:1200px;margin:0 auto;display:grid;gap:20px}
+.next .big span{color:var(--gold)}
+.next .note{margin:12px 0 0;font-size:14px;color:var(--mist-2);border-left:2px solid var(--blue);padding-left:12px;max-width:40em}
+footer{position:relative;z-index:2;background:var(--navy);border-top:1px solid rgba(238,243,248,.08);padding-block:32px calc(32px + env(safe-area-inset-bottom,0px));padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.foot-in{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 32px;justify-content:space-between;font-size:13px;color:var(--mist-2)}
+.foot-in b{color:var(--mist)}
+</style>
+
+</head>
+<body>
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#ch1" aria-label="滲力 SHENLI 回到開頭"><span class="tile" aria-hidden="true">滲</span><span><b>滲力</b><i>SHENLI</i></span></a>
+    <nav class="links" aria-label="章節">
+      <a href="#ch1" data-ch="0">木頭裡的家</a>
+      <a href="#ch2" data-ch="1">為什麼還在</a>
+      <a href="#ch3" data-ch="2">滲透原理</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="開啟選單">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="bar" aria-hidden="true"><span id="bar"></span></div>
+</header>
+<nav class="menu" id="menu" aria-label="章節選單" hidden>
+  <a href="#ch1"><span>01</span>木頭裡，住著一個家</a>
+  <a href="#ch2"><span>02</span>明明噴過了，為什麼還在？</a>
+  <a href="#ch3"><span>03</span>滲得進去，才滅得掉</a>
+</nav>
+
+<main>
+  <section class="story" aria-label="滲力的故事">
+    <div class="stage">
+      <canvas id="stage" role="img" aria-label="木頭剖面動畫：外觀完好的木頭剖開後，裡面有順著木紋延伸的蛀道。一般噴霧停在表面；滲力的藥劑沿著木紋滲進蛀道，到達白蟻取食的地方，白蟻再把藥帶回巢穴。"></canvas>
+    </div>
+    <div class="steps">
+      <article class="step hero" id="ch1">
+        <div class="copy">
+          <p class="eyebrow"><b>01</b>木頭裡，住著一個家</p>
+          <h1>滲得進去，<br>才滅得掉</h1>
+          <p class="lede">表面看起來好好的木頭，輕輕一敲，<strong>空了。</strong></p>
+          <ul class="tags" aria-label="產品重點">
+            <li>FORM<b>液劑型餌劑</b></li>
+            <li>ACTIVE<b>硼酸</b></li>
+            <li>VOLUME<b>500ml</b></li>
+          </ul>
+          <a class="hint" href="#s2">往下滑<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+        </div>
+      </article>
+      <article class="step" id="s2">
+        <div class="copy">
+          <p class="big">木頭裡，<br>早就住著另一個家。</p>
+          <p class="lede">很多人第一次發現白蟻，是在搬家、換櫃子，或拆下踢腳板的那一刻。</p>
+        </div>
+      </article>
+      <article class="step" id="ch2">
+        <div class="copy">
+          <p class="eyebrow"><b>02</b>起點</p>
+          <h2>明明噴過了，<br>為什麼又出現？</h2>
+          <p class="lede">這些年，我們聽過太多同一句話。答案藏在木頭裡。</p>
+        </div>
+      </article>
+      <article class="step">
+        <div class="copy">
+          <p class="lede" style="margin-top:0">白蟻不住在表面，牠們順著木紋往深處走。</p>
+          <p class="big" style="margin-top:12px">藥停在表面，<br>問題就留在裡面。</p>
+        </div>
+      </article>
+      <article class="step" id="ch3">
+        <div class="copy">
+          <p class="eyebrow"><b>03</b>滲得進去，才滅得掉</p>
+          <h2>滲力是<br><span class="hl">液劑型</span>的白蟻餌劑。</h2>
+          <p class="lede">我們把熟悉多年的白蟻配方重新拆開、重新打磨，從「怎麼噴」改成<strong>「怎麼滲」</strong>。</p>
+        </div>
+      </article>
+      <article class="step">
+        <div class="copy">
+          <h2>借用水的特性，<br>沿著木頭紋理<span class="hl">滲進蛀道</span>。</h2>
+          <p class="lede">不是大量噴灑、把表面弄濕就算了，而是把對的藥，送到對的位置。</p>
+        </div>
+      </article>
+      <article class="step">
+        <div class="copy">
+          <p class="big">白蟻在哪裡吃，<br>藥就去哪裡。</p>
+          <p class="lede">白蟻吃下，<strong>帶回巢穴</strong>。</p>
+        </div>
+      </article>
+      <article class="step">
+        <div class="copy solid">
+          <p class="eyebrow">核心精神</p>
+          <h2>滲透・直擊・魄力</h2>
+          <ul class="spirit">
+            <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg></span><b>滲透<small>往裡面走</small></b><p>不在表面打轉，順著木紋走到問題所在。</p></li>
+            <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg></span><b>直擊<small>送到該到的地方</small></b><p>白蟻在哪裡吃，藥就到哪裡；不靠大量噴灑。</p></li>
+            <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span><b>魄力<small>正面處理不拖延</small></b><p>果斷出手，給明確的下一步。</p></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="next" aria-labelledby="next-h">
+    <div class="next-in">
+      <p class="eyebrow"><b>04</b>下一章</p>
+      <p class="big" id="next-h">滲，是方法；<br>力，是決心。<br><span>滲力，也念作「勝利」。</span></p>
+      <p class="note">第二階段將加入：為什麼叫滲力、力量跟著問題走、滲力等級互動判讀、產品與購買。</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-in">
+    <span><b>滲力 SHENLI</b>　滲在木裡，勝在家裡</span>
+    <span>福來朗 HUKUROU｜台灣製造 60 年・居家環境守護品牌</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const css = getComputedStyle(root);
+  const tok = n => css.getPropertyValue(n).trim();
+  const COL = { navy: tok('--navy'), blue: tok('--blue'), cyan: tok('--cyan'), mist: tok('--mist'), mist2: tok('--mist-2'), wood: tok('--wood'), woodRed: tok('--wood-red'), gold: tok('--gold'), spray: tok('--spray') };
+  const mq = matchMedia('(prefers-reduced-motion: reduce)');
+  let RM = mq.matches;
+  const setMotion = () => root.classList.toggle('motion', !RM);
+  setMotion();
+  mq.addEventListener && mq.addEventListener('change', e => { RM = e.matches; setMotion(); });
+
+  /* ---------- helpers ---------- */
+  const cl = x => Math.min(1, Math.max(0, x));
+  const sm = (x, a, b) => { const t = cl((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+  const g = (k, x) => 22 + k * 28 + 5 * Math.sin(x * 0.0065 + k * 0.8) + 2.5 * Math.sin(x * 0.019 + k * 1.7);
+  const along = (k, xa, xb) => { const n = Math.max(8, Math.ceil(Math.abs(xb - xa) / 12)), p = []; for (let i = 0; i <= n; i++) { const x = xa + (xb - xa) * i / n; p.push([x, g(k, x)]); } return p; };
+  const conn = (k1, x1, k2, x2) => { const y1 = k1 < 0 ? -2 : g(k1, x1), y2 = typeof k2 === 'number' && k2 >= 0 ? g(k2, x2) : x2.y; const xe = typeof x2 === 'number' ? x2 : x2.x; const p = []; for (let i = 0; i <= 14; i++) { const u = i / 14; p.push([x1 + (xe - x1) * u + Math.sin(u * Math.PI) * 9, y1 + (y2 - y1) * u]); } return p; };
+  const seg = (pts, t0, t1) => { const L = [0]; for (let i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return { pts, L, len: L[L.length - 1], t0, t1 }; };
+  const rr = (c, x, y, w, h, r) => { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); };
+
+  /* ---------- wood geometry (design units: board 1000 × 420) ---------- */
+  const TUN = [{ k: 3, a: 120, b: 620 }, { k: 6, a: 260, b: 900 }, { k: 9, a: 80, b: 520 }, { k: 12, a: 420, b: 860 }];
+  const LINKS = [conn(3, 520, 6, 540), conn(6, 380, 9, 360), conn(6, 760, 12, 780)];
+  const EXIT = conn(12, 860, -1, { x: 900, y: 440 });
+  const ENTRY = conn(-1, 300, 3, 300);
+  const SEGS = [
+    seg(ENTRY, .06, .14),
+    seg(along(3, 300, 150), .14, .32), seg(along(3, 300, 520), .14, .28),
+    seg(LINKS[0], .28, .36),
+    seg(along(6, 540, 880), .36, .62), seg(along(6, 540, 380), .36, .46),
+    seg(LINKS[1], .46, .54), seg(along(9, 360, 110), .54, .80),
+    seg(LINKS[2], .53, .61), seg(along(12, 780, 840), .61, .72), seg(along(12, 780, 480), .61, .86)
+  ];
+  const FEED = [{ k: 3, x: 150, t: .32 }, { k: 6, x: 880, t: .62 }, { k: 9, x: 110, t: .80 }, { k: 12, x: 840, t: .72 }];
+  const REACH = [.22, .48, .70, .66];
+  const BUGS = Array.from({ length: 18 }, (_, i) => ({ ti: i % 4, u: (i * 0.377 + 0.1) % 1, sp: .35 + ((i * 7) % 5) * .09, ph: i * 1.7 }));
+  const exitSeg = seg(EXIT, 0, 1);
+
+  /* ---------- canvas ---------- */
+  const canvas = document.getElementById('stage');
+  const ctx = canvas.getContext && canvas.getContext('2d');
+  if (!ctx) return;
+  let W = 0, H = 0, dpr = 1, ax = 0, ay = 0, bs0 = 1, bs = 1, bg = null, wide = false;
+  // camera keyframes per step (design units): where we look and how close
+  const CAM = [
+    { x: 300, y: 70, z: 1.75 },  // 1a 表面、輕敲
+    { x: 500, y: 210, z: 1.12 }, // 1b 剖開
+    { x: 500, y: 120, z: 1.0 },  // 2a 噴霧落下
+    { x: 500, y: 130, z: 1.0 },  // 2b 停在表面
+    { x: 340, y: 20, z: 1.5 },   // 3a 噴瓶對準裂縫
+    { x: 480, y: 210, z: 1.35 }, // 3b 跟著藥劑走
+    { x: 520, y: 270, z: 1.0 },  // 3c 取食處、帶回巢
+    { x: 500, y: 230, z: .96 },  // 3d 全景
+    { x: 500, y: 230, z: .96 }
+  ];
+  const cam = P => { const i = Math.min(CAM.length - 2, Math.max(0, Math.floor(P))), f = sm(P - i, 0, 1), a = CAM[i], b = CAM[i + 1]; return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f, z: a.z + (b.z - a.z) * f }; };
+
+  function layout() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = canvas.getBoundingClientRect();
+    W = r.width; H = r.height;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    wide = W >= 1024;
+    if (wide) { bs0 = Math.min(W * .46, 820) / 1000; ax = W * .71; ay = H * .54; }
+    else { bs0 = Math.min(W * .94, 700) / 1000; ax = W / 2; ay = H * .66; }
+    buildBg();
+  }
+  function buildBg() {
+    bg = document.createElement('canvas'); bg.width = canvas.width; bg.height = canvas.height;
+    const b = bg.getContext('2d'); b.scale(dpr, dpr);
+    b.fillStyle = COL.navy; b.fillRect(0, 0, W, H);
+    const cx = ax, cy = ay, rg = b.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * .6);
+    rg.addColorStop(0, 'rgba(21,87,214,.30)'); rg.addColorStop(1, 'rgba(21,87,214,0)');
+    b.fillStyle = rg; b.fillRect(0, 0, W, H);
+    b.fillStyle = 'rgba(238,243,248,.07)';
+    for (let x = 14; x < W; x += 28) for (let y = 14; y < H; y += 28) b.fillRect(x, y, 1.3, 1.3);
+  }
+
+  function strokePts(p) { ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]); for (let i = 1; i < p.length; i++) ctx.lineTo(p[i][0], p[i][1]); ctx.stroke(); }
+  function partial(s, frac) {
+    const target = frac * s.len, p = s.pts;
+    ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]);
+    let head = p[0];
+    for (let i = 1; i < p.length; i++) {
+      if (s.L[i] <= target) { ctx.lineTo(p[i][0], p[i][1]); head = p[i]; }
+      else { const u = (target - s.L[i - 1]) / (s.L[i] - s.L[i - 1]); head = [p[i - 1][0] + (p[i][0] - p[i - 1][0]) * u, p[i - 1][1] + (p[i][1] - p[i - 1][1]) * u]; ctx.lineTo(head[0], head[1]); break; }
+    }
+    ctx.stroke(); return head;
+  }
+  function pointAt(s, frac) { const target = frac * s.len, p = s.pts; for (let i = 1; i < p.length; i++) if (s.L[i] >= target) { const u = (target - s.L[i - 1]) / (s.L[i] - s.L[i - 1] || 1); return [p[i - 1][0] + (p[i][0] - p[i - 1][0]) * u, p[i - 1][1] + (p[i][1] - p[i - 1][1]) * u]; } return p[p.length - 1]; }
+  function label(txt, x, y, a, col, align) {
+    if (a <= .01) return;
+    ctx.save(); ctx.globalAlpha = a;
+    const fs = (wide ? 14 : 12.5) / bs;
+    ctx.font = `700 ${fs}px ${tok('--f-zh')}`;
+    const w = ctx.measureText(txt).width, ph = fs * .7, h = fs * 1.9;
+    const x0 = align === 'left' ? x : align === 'right' ? x - w : x - w / 2;
+    ctx.fillStyle = 'rgba(10,26,51,.88)'; rr(ctx, x0 - ph, y - h / 2, w + ph * 2, h, h / 2); ctx.fill();
+    ctx.strokeStyle = col; ctx.globalAlpha = a * .55; ctx.lineWidth = 1 / bs; ctx.stroke();
+    ctx.globalAlpha = a; ctx.fillStyle = col; ctx.textBaseline = 'middle'; ctx.fillText(txt, x0, y + fs * .04);
+    ctx.restore();
+  }
+
+  function render(P, t) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.drawImage(bg, 0, 0);
+    const crack = sm(P, .15, .85), reveal = sm(P, .95, 1.85);
+    const spray = cl((P - 2) / 1.3), film = sm(P, 2.1, 2.8) * (1 - sm(P, 4.0, 4.8));
+    const q = cl((P - 4.15) / 2.75);
+    const fy = RM ? 0 : Math.sin(t * 1.1) * 5 * (1 - reveal);
+    const c = cam(P); bs = bs0 * c.z;
+    ctx.setTransform(dpr * bs, 0, 0, dpr * bs, dpr * (ax - c.x * bs), dpr * (ay - (c.y - fy) * bs));
+
+    // shadow
+    ctx.save(); ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(500, 438, 500, 16, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+
+    ctx.save(); rr(ctx, 0, 0, 1000, 420, 10); ctx.clip();
+    // interior
+    const ig = ctx.createLinearGradient(0, 0, 0, 420); ig.addColorStop(0, '#7E3526'); ig.addColorStop(1, '#4A1C14');
+    ctx.fillStyle = ig; ctx.fillRect(0, 0, 1000, 420);
+    ctx.lineWidth = 1.6;
+    for (let k = 0; k < 15; k++) {
+      ctx.strokeStyle = 'rgba(25,8,4,.32)'; strokePts(along(k, 0, 1000));
+      ctx.strokeStyle = 'rgba(255,190,150,.07)'; ctx.save(); ctx.translate(0, 7); strokePts(along(k, 0, 1000)); ctx.restore();
+    }
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1E0D08';
+    ctx.lineWidth = 18; TUN.forEach(T => strokePts(along(T.k, T.a, T.b)));
+    ctx.lineWidth = 13; LINKS.forEach(strokePts); strokePts(EXIT);
+    ctx.lineWidth = 6 + 4 * crack; strokePts(ENTRY);
+    ctx.fillStyle = '#1E0D08'; FEED.forEach(f => { ctx.beginPath(); ctx.arc(f.x, g(f.k, f.x), 18, 0, Math.PI * 2); ctx.fill(); });
+
+    // liquid
+    ctx.save(); ctx.strokeStyle = COL.cyan; ctx.lineWidth = 9; ctx.shadowColor = COL.cyan; ctx.shadowBlur = 14 * dpr;
+    const heads = [];
+    SEGS.forEach(s => { const f = cl((q - s.t0) / (s.t1 - s.t0)); if (f > 0) { const h = partial(s, f); if (f < 1) heads.push(h); } });
+    ctx.fillStyle = '#E6FBFF'; heads.forEach(h => { ctx.beginPath(); ctx.arc(h[0], h[1], 6, 0, Math.PI * 2); ctx.fill(); });
+    ctx.restore();
+    // feeding points
+    FEED.forEach(f => {
+      const lit = sm(q, f.t - .02, f.t + .06); if (lit <= 0) return;
+      const x = f.x, y = g(f.k, f.x);
+      ctx.save(); ctx.globalAlpha = lit; ctx.fillStyle = 'rgba(47,198,232,.35)'; ctx.beginPath(); ctx.arc(x, y, 17, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = COL.cyan; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y, 18 + 4 * lit, 0, Math.PI * 2); ctx.stroke();
+      if (!RM && P > 6.6) { const ph = (t * .6 + f.x / 1000) % 1; ctx.globalAlpha = lit * (1 - ph) * .7; ctx.beginPath(); ctx.arc(x, y, 22 + ph * 26, 0, Math.PI * 2); ctx.stroke(); }
+      ctx.restore();
+    });
+    // carriers back to nest
+    const carry = sm(q, .62, .9);
+    if (carry > 0) {
+      ctx.save(); ctx.fillStyle = COL.cyan; ctx.shadowColor = COL.cyan; ctx.shadowBlur = 8 * dpr;
+      for (let j = 0; j < 5; j++) { const u = RM ? (j + .5) / 5 : (t * .28 + j / 5) % 1; const p = pointAt(exitSeg, u); ctx.globalAlpha = carry * Math.min(1, (1 - u) * 4); ctx.beginPath(); ctx.ellipse(p[0], p[1], 4, 6.5, .3, 0, Math.PI * 2); ctx.fill(); }
+      ctx.restore();
+    }
+    // termites (abstract dots)
+    const tt = RM ? 0 : t;
+    BUGS.forEach(bgx => {
+      const T = TUN[bgx.ti];
+      const u = Math.min(.96, Math.max(.04, bgx.u + .12 * Math.sin(tt * bgx.sp + bgx.ph)));
+      const x = T.a + (T.b - T.a) * u, y = g(T.k, x), ang = Math.atan2(g(T.k, x + 2) - g(T.k, x - 2), 4);
+      const fed = sm(q, REACH[bgx.ti], REACH[bgx.ti] + .14);
+      const away = sm(q, REACH[bgx.ti] + .1, REACH[bgx.ti] + .3);
+      ctx.save(); ctx.globalAlpha = .95 * (1 - away * .85);
+      ctx.fillStyle = fed > .5 ? COL.cyan : '#F1D7C1';
+      ctx.translate(x, y); ctx.rotate(ang); ctx.beginPath(); ctx.ellipse(0, 0, 6.5, 3.4, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    });
+
+    // skin (top surface)
+    ctx.fillStyle = '#D9A273';
+    if (crack > .6) { ctx.fillRect(0, 0, 292, 11); ctx.fillRect(308, 0, 692, 11); } else ctx.fillRect(0, 0, 1000, 11);
+
+    // front face (peels away left → right)
+    if (reveal < 1) {
+      const ex = y => -90 + reveal * 1200 + 24 * Math.sin(y * .045);
+      ctx.save(); ctx.beginPath(); ctx.moveTo(ex(0), 0);
+      for (let y = 12; y <= 420; y += 12) ctx.lineTo(ex(y), y);
+      ctx.lineTo(1000, 420); ctx.lineTo(1000, 0); ctx.closePath(); ctx.clip();
+      const fg = ctx.createLinearGradient(0, 0, 0, 420); fg.addColorStop(0, '#D49866'); fg.addColorStop(1, '#A86C42');
+      ctx.fillStyle = fg; ctx.fillRect(0, 0, 1000, 420);
+      ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(110,52,26,.35)';
+      for (let k = 0; k < 19; k++) { ctx.beginPath(); for (let x = 0; x <= 1000; x += 20) { const y = 14 + k * 22 + 6 * Math.sin(x * .005 + k) + 3 * Math.sin(x * .021 + k * 2); x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
+      ctx.strokeStyle = 'rgba(110,52,26,.5)'; ctx.lineWidth = 2.5;
+      for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.ellipse(720, 250, 34 - i * 8, 13 - i * 3, -.08, 0, Math.PI * 2); ctx.stroke(); }
+      // crack
+      const C = [[300, 0], [307, 18], [296, 36], [305, 55], [297, 74], [304, 96]];
+      ctx.strokeStyle = '#3A1A0F'; ctx.lineWidth = 3.5; ctx.lineCap = 'round';
+      const n = crack * (C.length - 1);
+      if (n > 0) { ctx.beginPath(); ctx.moveTo(C[0][0], C[0][1]); for (let i = 1; i <= Math.ceil(n); i++) { const f = Math.min(1, n - (i - 1)); ctx.lineTo(C[i - 1][0] + (C[i][0] - C[i - 1][0]) * f, C[i - 1][1] + (C[i][1] - C[i - 1][1]) * f); } ctx.stroke(); }
+      if (crack > .5) { ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(296, 36); ctx.lineTo(282, 50); ctx.moveTo(305, 55); ctx.lineTo(320, 66); ctx.stroke(); }
+      ctx.restore();
+      if (reveal > 0) { ctx.save(); ctx.strokeStyle = 'rgba(255,228,200,.75)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(ex(0), 0); for (let y = 12; y <= 420; y += 12) ctx.lineTo(ex(y), y); ctx.stroke(); ctx.restore(); }
+    }
+    ctx.restore(); // board clip
+
+    // board edge
+    ctx.save(); ctx.strokeStyle = 'rgba(238,243,248,.14)'; ctx.lineWidth = 1.5 / bs; rr(ctx, 0, 0, 1000, 420, 10); ctx.stroke(); ctx.restore();
+
+    // ordinary spray: droplets that stay on the surface
+    if (spray > 0 && film > .01) {
+      ctx.save(); ctx.fillStyle = COL.spray;
+      for (let i = 0; i < 26; i++) { const d = (i % 7) / 7 * .55, f = cl((spray - d) / .35); if (f <= 0 || f >= 1) continue; const x = 150 + i * 27 + ((i * 13) % 9); ctx.globalAlpha = .85 * film; ctx.beginPath(); ctx.arc(x, -120 + f * 118, 4.5, 0, Math.PI * 2); ctx.fill(); }
+      const spread = 360 * sm(spray, .1, .9);
+      ctx.globalAlpha = .8 * film; ctx.beginPath(); ctx.moveTo(500 - spread, 0);
+      for (let x = -spread; x <= spread; x += 20) ctx.lineTo(500 + x, -5 - 2.5 * Math.sin(x * .05 + t * (RM ? 0 : 2)));
+      ctx.lineTo(500 + spread, 0); ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+    // tap ring (hero)
+    const tapA = 1 - sm(P, .1, .7);
+    if (tapA > 0 && !RM) { const ph = (t % 2.2) / 2.2; ctx.save(); ctx.strokeStyle = COL.mist; ctx.globalAlpha = (1 - ph) * tapA * .6; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(300, 0, 10 + ph * 70, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); }
+    // shenli bottle (same white bottle + black trigger as the original product, new blue label — packaging is illustrative)
+    const bottleA = sm(P, 3.85, 4.3) * (1 - sm(P, 5.0, 5.4));
+    if (bottleA > 0) {
+      const NZ = [395, -205], phi = -1.12;
+      ctx.save(); ctx.globalAlpha = bottleA;
+      ctx.translate(NZ[0] + (1 - bottleA) * 90, NZ[1] - (1 - bottleA) * 60); ctx.rotate(phi);
+      ctx.fillStyle = '#16181C';
+      rr(ctx, -2, -15, 76, 30, 9); ctx.fill();                       // trigger head
+      ctx.beginPath(); ctx.moveTo(14, 14); ctx.lineTo(30, 14); ctx.quadraticCurveTo(26, 40, 34, 58); ctx.lineTo(24, 60); ctx.quadraticCurveTo(14, 38, 14, 14); ctx.fill(); // trigger
+      rr(ctx, 44, 12, 30, 24, 4); ctx.fill();                        // collar
+      ctx.fillStyle = '#F3F5F7';
+      ctx.beginPath(); ctx.moveTo(48, 36); ctx.lineTo(70, 36); ctx.quadraticCurveTo(96, 44, 96, 72); ctx.lineTo(96, 176); ctx.quadraticCurveTo(96, 186, 86, 186); ctx.lineTo(32, 186); ctx.quadraticCurveTo(22, 186, 22, 176); ctx.lineTo(22, 72); ctx.quadraticCurveTo(22, 44, 48, 36); ctx.fill(); // body
+      ctx.fillStyle = COL.blue; ctx.fillRect(22, 92, 74, 66);         // new label
+      ctx.fillStyle = COL.cyan; ctx.fillRect(22, 150, 74, 4);
+      ctx.save(); ctx.translate(59, 122); ctx.rotate(Math.PI / 2); ctx.fillStyle = COL.mist; ctx.font = `900 22px ${tok('--f-zh')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('滲力', 0, 0); ctx.restore();
+      ctx.restore();
+      // jet from nozzle to the crack
+      const jet = sm(q, 0, .02) * (1 - sm(q, .09, .15));
+      if (jet > 0) {
+        ctx.save(); ctx.fillStyle = COL.cyan; ctx.shadowColor = COL.cyan; ctx.shadowBlur = 10 * dpr;
+        for (let j = 0; j < 9; j++) { const u = RM ? j / 9 : (t * 1.6 + j / 9) % 1; ctx.globalAlpha = jet * (.4 + .6 * u); ctx.beginPath(); ctx.arc(NZ[0] + (300 - NZ[0]) * u, NZ[1] + (-2 - NZ[1]) * u, 3 + 2.5 * u, 0, Math.PI * 2); ctx.fill(); }
+        ctx.restore();
+      }
+    }
+
+    // labels
+    label('輕輕一敲', 300, -52, tapA * .9, COL.mist);
+    label('蛀道：白蟻活動的地方', 560, 236, reveal * (1 - sm(P, 4.1, 4.5)), COL.mist);
+    label('一般噴霧：停在表面', 500, -150, film, COL.spray);
+    label('滲力：沿木紋滲進蛀道', 40, -62, sm(P, 4.25, 4.7), COL.cyan, 'left');
+    label('取食處', 880, g(6, 880) - 42, sm(q, .62, .7), COL.cyan);
+    label('帶回巢穴', 900, 478, carry, COL.cyan);
+  }
+
+  /* ---------- scroll → progress ---------- */
+  const steps = [...document.querySelectorAll('.step')];
+  const bar = document.getElementById('bar');
+  const navLinks = [...document.querySelectorAll('.links a')];
+  const measure = () => { let P = 0; for (const el of steps) { const r = el.getBoundingClientRect(); P += cl(-r.top / r.height); } return P; };
+  let Pd = measure(), running = false, onScreen = true;
+  function frame(ts) {
+    if (!onScreen || document.hidden) { running = false; return; }
+    const Pt = measure();
+    Pd = RM ? Pt : Pd + (Pt - Pd) * .14;
+    if (Math.abs(Pt - Pd) < .0005) Pd = Pt;
+    render(Pd, ts / 1000);
+    requestAnimationFrame(frame);
+  }
+  const start = () => { if (!running && onScreen && !document.hidden) { running = true; requestAnimationFrame(frame); } };
+  function onScroll() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    const P = measure(), ch = P < 2 ? 0 : P < 4 ? 1 : 2;
+    navLinks.forEach(a => a.setAttribute('aria-current', String(+a.dataset.ch === ch)));
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('visibilitychange', start);
+  new IntersectionObserver(e => { onScreen = e[0].isIntersecting; start(); }).observe(document.querySelector('.story'));
+  new ResizeObserver(() => { layout(); render(Pd, performance.now() / 1000); }).observe(canvas);
+  layout(); onScroll(); start();
+
+  /* ---------- text reveal ---------- */
+  // a step's text shows only while the step overlaps the top 30% of the screen, so incoming text never slides across the wood
+  const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('in', e.isIntersecting)), { rootMargin: '0px 0px -70% 0px' });
+  steps.forEach(s => io.observe(s));
+
+  /* ---------- mobile menu ---------- */
+  const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+  const ICON_MENU = btn.innerHTML;
+  const ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+  const setMenu = open => { menu.hidden = !open; btn.setAttribute('aria-expanded', String(open)); btn.setAttribute('aria-label', open ? '關閉選單' : '開啟選單'); btn.innerHTML = open ? ICON_X : ICON_MENU; document.body.style.overflow = open ? 'hidden' : ''; };
+  btn.addEventListener('click', () => setMenu(menu.hidden));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); btn.focus(); } });
+})();
+</script>
+</body>
+</html>
